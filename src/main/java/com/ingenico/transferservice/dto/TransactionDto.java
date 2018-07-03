@@ -1,6 +1,6 @@
 package com.ingenico.transferservice.dto;
 
-public class TransferDto {
+public class TransactionDto {
 
     private String sourceAccountName;
 

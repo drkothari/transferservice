@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Entity
-public class Transfer implements Serializable{
+public class Transaction implements Serializable{
 
     @Id
     @GeneratedValue
@@ -29,7 +29,7 @@ public class Transfer implements Serializable{
 
     private LocalDateTime updated_on;
 
-    public Transfer() {
+    public Transaction() {
     }
 
     public Integer getId() {
