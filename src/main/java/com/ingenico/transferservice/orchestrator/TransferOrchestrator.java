@@ -34,7 +34,21 @@ public class TransferOrchestrator {
 
     private void validateTransfer(TransferDto transferDto) throws TransferServiceException{
         //validate both accounts, overwithdrawn
+
         TransferServiceException transferServiceException = new TransferServiceException();
+
+        //validating TargetAccount existence
+
+        if (! "".equals(transferDto.getTargetAccountName())) {
+            final com.ingenico.transferservice.persistence.entity.Account targetAccount = accountRepository.findByName(transferDto.getTargetAccountName());
+            if ( targetAccount == null) {
+                transferServiceException.setMessage("TARGET_ACCOUNT_NOT_FOUND");
+                throw transferServiceException;
+            }
+        } else {
+            transferServiceException.setMessage("TARGET_ACCOUNT_NAME_IS_EMPTY");
+            throw transferServiceException;
+        }
 
         //validating SourceAccount existence
         if (! "".equals(transferDto.getSourceAccountName())) {
@@ -51,21 +65,10 @@ public class TransferOrchestrator {
                 }
             }
         } else {
-            transferServiceException.setMessage("SOURCE_ACCOUNT_IS_EMPTY");
+            transferServiceException.setMessage("SOURCE_ACCOUNT_NAME_IS_EMPTY");
             throw transferServiceException;
         }
 
-        //validating TargetAccount existence
-        if (! "".equals(transferDto.getTargetAccountName())) {
-            final com.ingenico.transferservice.persistence.entity.Account targetAccount = accountRepository.findByName(transferDto.getSourceAccountName());
-            if ( targetAccount == null) {
-                transferServiceException.setMessage("TARGET_ACCOUNT_NOT_FOUND");
-                throw transferServiceException;
-            }
-        } else {
-            transferServiceException.setMessage("TARGET_ACCOUNT_IS_EMPTY");
-            throw transferServiceException;
-        }
 
     }
 }
