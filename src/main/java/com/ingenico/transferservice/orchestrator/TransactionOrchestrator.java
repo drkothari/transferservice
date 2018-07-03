@@ -13,6 +13,9 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 import java.util.List;
 
+/**
+* TransactionOrchestrator  responsible to validate inputs and call required services for transfer amount
+ */
 @Component
 public class TransactionOrchestrator {
 
@@ -26,14 +29,26 @@ public class TransactionOrchestrator {
     @Resource
     private TransactionService transactionService;
 
+    /**
+     *
+     * @param transaction request object
+     * @return list of accounts with the updated balance
+     * @throws TransferServiceException
+     */
     public List<Account> transfer(Transaction transaction) throws TransferServiceException {
         logger.info("inside TransferOrchestrator.transfer");
         validateTransfer(transaction);
         return transactionService.transfer(transaction);
     }
 
+    /**
+     * Validates
+     * -Given AccountName is not NULL\EMPTY, alongwith their existence
+     * -SourceAccount should mot over withdrawn
+     * @param transaction request body
+     * @throws TransferServiceException
+     */
     private void validateTransfer(Transaction transaction) throws TransferServiceException{
-        //validate both accounts, overwithdrawn
 
         TransferServiceException transferServiceException = new TransferServiceException();
 
@@ -50,7 +65,7 @@ public class TransactionOrchestrator {
             throw transferServiceException;
         }
 
-        //validating SourceAccount existence
+        //validating SourceAccount existence and overwithdrawn
         if (! "".equals(transaction.getSourceAccount().getName())) {
             final com.ingenico.transferservice.persistence.entity.Account sourceAccount = accountRepository.findByName(transaction.getSourceAccount().getName());
             if (sourceAccount == null) {

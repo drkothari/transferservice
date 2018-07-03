@@ -6,6 +6,9 @@ import javax.persistence.Id;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+/**
+ * Account Entity Class
+ */
 @Entity
 public class Account implements Serializable {
 

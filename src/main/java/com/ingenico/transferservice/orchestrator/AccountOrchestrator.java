@@ -7,6 +7,9 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 
+/**
+ * AccountOrchestrator responsible to validate inputs and call required services for Accounts
+ */
 @Component
 public class AccountOrchestrator {
 

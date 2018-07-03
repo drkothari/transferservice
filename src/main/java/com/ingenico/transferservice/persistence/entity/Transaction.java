@@ -8,6 +8,9 @@ import javax.persistence.OneToOne;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+/**
+ * Transaction Entity Class
+ */
 @Entity
 public class Transaction implements Serializable{
 

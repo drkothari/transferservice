@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import java.util.List;
 
+/**
+ * TransactionController handle the given transfer of amount between accounts
+ */
 @RestController
 public class TransactionController {
 
@@ -23,6 +26,12 @@ public class TransactionController {
     @Resource
     private TransactionOrchestrator transactionOrchestrator;
 
+    /**
+     *
+     * @param transaction reuest body
+     * @return list of account which are requested for transfer, with updated balance
+     * @throws TransferServiceException
+     */
     @PostMapping("/transfers")
     public ResponseEntity<List<Account>> transferFund(@RequestBody Transaction transaction) throws TransferServiceException {
         logger.info("inside transferFund");

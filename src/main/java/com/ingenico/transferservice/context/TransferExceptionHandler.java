@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+/**
+ * TransferExceptionHandler - handle the all exception and send appropriate response
+ */
 @RestControllerAdvice(basePackages="com.ingenico.transferservice")
 public class TransferExceptionHandler {
     private final Logger logger = LoggerFactory.getLogger(TransferExceptionHandler.class);

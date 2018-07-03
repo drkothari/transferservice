@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 
+/**
+ * AccountService responsible to call persistence layer for Account addition
+ */
 @Service
 public class AccountService {
 
@@ -17,6 +20,12 @@ public class AccountService {
     @Resource
     AccountRepository accountRepository;
 
+    /**
+     *
+     * @param accountModel
+     * @return added rnew Account resource
+     * @throws TransferServiceException
+     */
     public com.ingenico.transferservice.model.Account addAccount(com.ingenico.transferservice.model.Account accountModel) throws TransferServiceException {
         TransferServiceException transferServiceException = new TransferServiceException();
         try {

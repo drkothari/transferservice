@@ -14,6 +14,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * TransactionService responsible to call persistence layer for amount transfer
+ */
 @Service
 public class TransactionService {
 
@@ -24,6 +27,12 @@ public class TransactionService {
     @Resource
     private AccountRepository accountRepository;
 
+    /**
+     *
+     * @param transaction model class
+     * @return list of account which are requested for transfer, with updated balance
+     * @throws TransferServiceException
+     */
     public List<Account> transfer(Transaction transaction) throws TransferServiceException{
         TransferServiceException transferServiceException = new TransferServiceException();
         List<Account> accounts = new ArrayList<>();

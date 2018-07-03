@@ -1,5 +1,8 @@
 package com.ingenico.transferservice.context;
 
+/**
+ * TransferServiceException Custom/Functional exception
+ */
 public class TransferServiceException extends Exception {
 
     private String message;

@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 
+/**
+ * AccountController To add account resource
+ */
 @RestController
 @RequestMapping(produces = {"application/hal+json"})
 public class AccountController {
@@ -23,9 +26,15 @@ public class AccountController {
     @Resource
     private AccountOrchestrator accountOrchestrator;
 
+    /**
+     *
+     * @param accountModel request body
+     * @return added rnew Account resource
+     * @throws TransferServiceException
+     */
     @PostMapping("/accounts")
     public ResponseEntity<Account> addAccount(@RequestBody Account accountModel) throws TransferServiceException{
-        logger.info("Adding Account with name ", accountModel.getName());
+        logger.info("Adding Account with name {}", accountModel.getName());
         accountOrchestrator.addAccount(accountModel);
         
         //Using Model class as resource class to return the response as there is no change

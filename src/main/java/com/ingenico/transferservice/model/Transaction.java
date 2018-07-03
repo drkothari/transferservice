@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.time.LocalDateTime;
 
+/**
+ * Transaction Model Class
+ */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Transaction {
 
