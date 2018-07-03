@@ -1,7 +1,7 @@
 package com.ingenico.transferservice.controller;
 
 import com.ingenico.transferservice.context.TransferServiceException;
-import com.ingenico.transferservice.dto.TransactionDto;
+import com.ingenico.transferservice.model.Transaction;
 import com.ingenico.transferservice.model.Account;
 import com.ingenico.transferservice.orchestrator.TransactionOrchestrator;
 import org.slf4j.Logger;
@@ -24,9 +24,9 @@ public class TransactionController {
     private TransactionOrchestrator transactionOrchestrator;
 
     @PostMapping("/transfers")
-    public ResponseEntity<List<Account>> transferFund(@RequestBody TransactionDto transactionDto) throws TransferServiceException {
+    public ResponseEntity<List<Account>> transferFund(@RequestBody Transaction transaction) throws TransferServiceException {
         logger.info("inside transferFund");
-        final List<Account> accounts = transactionOrchestrator.transfer(transactionDto);
+        final List<Account> accounts = transactionOrchestrator.transfer(transaction);
         return new ResponseEntity<List<Account>>(accounts, HttpStatus.ACCEPTED);
     }
 }

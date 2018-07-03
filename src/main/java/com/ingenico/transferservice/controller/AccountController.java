@@ -1,6 +1,6 @@
 package com.ingenico.transferservice.controller;
 
-import com.ingenico.transferservice.dto.AccountDto;
+import com.ingenico.transferservice.context.TransferServiceException;
 import com.ingenico.transferservice.model.Account;
 import com.ingenico.transferservice.orchestrator.AccountOrchestrator;
 import org.slf4j.Logger;
@@ -24,11 +24,11 @@ public class AccountController {
     private AccountOrchestrator accountOrchestrator;
 
     @PostMapping("/accounts")
-    public ResponseEntity<Account> addAccount(@RequestBody AccountDto accountDto){
-        logger.info("Adding Account with name ", accountDto.getName());
-        final Account account = accountOrchestrator.addAccount(accountDto);
+    public ResponseEntity<Account> addAccount(@RequestBody Account accountModel) throws TransferServiceException{
+        logger.info("Adding Account with name ", accountModel.getName());
+        accountOrchestrator.addAccount(accountModel);
         
         //Using Model class as resource class to return the response as there is no change
-        return new ResponseEntity<>(account, HttpStatus.CREATED);
+        return new ResponseEntity<>(accountModel, HttpStatus.CREATED);
     }
 }

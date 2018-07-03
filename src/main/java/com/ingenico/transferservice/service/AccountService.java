@@ -1,5 +1,6 @@
 package com.ingenico.transferservice.service;
 
+import com.ingenico.transferservice.context.TransferServiceException;
 import com.ingenico.transferservice.persistence.entity.Account;
 import com.ingenico.transferservice.persistence.repository.AccountRepository;
 import org.slf4j.Logger;
@@ -16,16 +17,17 @@ public class AccountService {
     @Resource
     AccountRepository accountRepository;
 
-    public com.ingenico.transferservice.model.Account addAccount(com.ingenico.transferservice.model.Account accountModel) {
+    public com.ingenico.transferservice.model.Account addAccount(com.ingenico.transferservice.model.Account accountModel) throws TransferServiceException {
+        TransferServiceException transferServiceException = new TransferServiceException();
         try {
             Account accountEntity = new Account(accountModel);
             accountRepository.save(accountEntity);
-            accountModel.setId(accountEntity.getId());
             accountModel.setCreatedOn(accountEntity.getCreated_on());
             accountModel.setUpdatedOn(accountEntity.getUpdated_on());
         } catch (Exception e) {
             logger.error("Exception while saving account in AccountService.addAccount()");
-            throw e;
+            transferServiceException.setMessage("TECHNICAL_ERROR");
+            throw transferServiceException;
         }
         return accountModel;
     }

@@ -32,6 +32,16 @@ public class Transaction implements Serializable{
     public Transaction() {
     }
 
+    public Transaction(com.ingenico.transferservice.model.Transaction transactionModel, Account sourceAccount, Account targetAccount) {
+        if (transactionModel != null) {
+            this.amount = transactionModel.getAmount();
+            this.sourceAccount = sourceAccount;
+            this.targetAccount = targetAccount;
+            this.created_on = LocalDateTime.now();
+            this.updated_on = LocalDateTime.now();
+        }
+    }
+
     public Integer getId() {
         return id;
     }

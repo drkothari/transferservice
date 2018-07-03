@@ -7,7 +7,6 @@ import java.time.LocalDateTime;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Account {
 
-    private Integer id;
     private String name;
     private double balance;
     private LocalDateTime createdOn;
@@ -27,14 +26,6 @@ public class Account {
 
     public void setBalance(double balance) {
         this.balance = balance;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public LocalDateTime getCreatedOn() {

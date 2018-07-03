@@ -1,7 +1,7 @@
 package com.ingenico.transferservice.orchestrator;
 
 import com.ingenico.transferservice.context.TransferServiceException;
-import com.ingenico.transferservice.dto.TransactionDto;
+import com.ingenico.transferservice.model.Transaction;
 import com.ingenico.transferservice.model.Account;
 import com.ingenico.transferservice.persistence.repository.AccountRepository;
 import com.ingenico.transferservice.persistence.repository.TransactionRepository;
@@ -26,21 +26,21 @@ public class TransactionOrchestrator {
     @Resource
     private TransactionService transactionService;
 
-    public List<Account> transfer(TransactionDto transactionDto) throws TransferServiceException {
+    public List<Account> transfer(Transaction transaction) throws TransferServiceException {
         logger.info("inside TransferOrchestrator.transfer");
-        validateTransfer(transactionDto);
-        return transactionService.transfer(transactionDto);
+        validateTransfer(transaction);
+        return transactionService.transfer(transaction);
     }
 
-    private void validateTransfer(TransactionDto transactionDto) throws TransferServiceException{
+    private void validateTransfer(Transaction transaction) throws TransferServiceException{
         //validate both accounts, overwithdrawn
 
         TransferServiceException transferServiceException = new TransferServiceException();
 
         //validating TargetAccount existence
 
-        if (! "".equals(transactionDto.getTargetAccountName())) {
-            final com.ingenico.transferservice.persistence.entity.Account targetAccount = accountRepository.findByName(transactionDto.getTargetAccountName());
+        if (! "".equals(transaction.getTargetAccount().getName())) {
+            final com.ingenico.transferservice.persistence.entity.Account targetAccount = accountRepository.findByName(transaction.getTargetAccount().getName());
             if ( targetAccount == null) {
                 transferServiceException.setMessage("TARGET_ACCOUNT_NOT_FOUND");
                 throw transferServiceException;
@@ -51,14 +51,14 @@ public class TransactionOrchestrator {
         }
 
         //validating SourceAccount existence
-        if (! "".equals(transactionDto.getSourceAccountName())) {
-            final com.ingenico.transferservice.persistence.entity.Account sourceAccount = accountRepository.findByName(transactionDto.getSourceAccountName());
+        if (! "".equals(transaction.getSourceAccount().getName())) {
+            final com.ingenico.transferservice.persistence.entity.Account sourceAccount = accountRepository.findByName(transaction.getSourceAccount().getName());
             if (sourceAccount == null) {
                 transferServiceException.setMessage("SOURCE_ACCOUNT_NOT_FOUND");
                 throw transferServiceException;
             } else {
                 //validating over transfer
-                double difference = sourceAccount.getBalance() - transactionDto.getAmount();
+                double difference = sourceAccount.getBalance() - transaction.getAmount();
                 if (difference < 0) {
                     transferServiceException.setMessage("INSUFFICIENT_BALANCE_IN_SOURCE_ACCOUNT");
                     throw transferServiceException;
