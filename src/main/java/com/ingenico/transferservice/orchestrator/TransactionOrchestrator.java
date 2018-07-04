@@ -14,7 +14,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
-* TransactionOrchestrator  responsible to validate inputs and call required services for transfer amount
+* TransactionOrchestrator responsible to validate inputs and call required services for transfer amount
  */
 @Component
 public class TransactionOrchestrator {
@@ -23,14 +23,13 @@ public class TransactionOrchestrator {
 
     @Resource
     private TransactionRepository transactionRepository;
-
     @Resource
     private AccountRepository accountRepository;
     @Resource
     private TransactionService transactionService;
 
     /**
-     *
+     * This method will validate transfer request, save the transfer and modify source and target accounts
      * @param transaction request object
      * @return list of accounts with the updated balance
      * @throws TransferServiceException
@@ -42,9 +41,9 @@ public class TransactionOrchestrator {
     }
 
     /**
-     * Validates
-     * -Given AccountName is not NULL\EMPTY, alongwith their existence
-     * -SourceAccount should mot over withdrawn
+     * Validates below
+     * - Given AccountName is not NULL\EMPTY, along with their existence
+     * - SourceAccount should not over withdrawn
      * @param transaction request body
      * @throws TransferServiceException
      */
@@ -53,7 +52,6 @@ public class TransactionOrchestrator {
         TransferServiceException transferServiceException = new TransferServiceException();
 
         //validating TargetAccount existence
-
         if (! "".equals(transaction.getTargetAccount().getName())) {
             final com.ingenico.transferservice.persistence.entity.Account targetAccount = accountRepository.findByName(transaction.getTargetAccount().getName());
             if ( targetAccount == null) {
@@ -65,14 +63,14 @@ public class TransactionOrchestrator {
             throw transferServiceException;
         }
 
-        //validating SourceAccount existence and overwithdrawn
+        //validating SourceAccount existence and over withdrawn
         if (! "".equals(transaction.getSourceAccount().getName())) {
             final com.ingenico.transferservice.persistence.entity.Account sourceAccount = accountRepository.findByName(transaction.getSourceAccount().getName());
             if (sourceAccount == null) {
                 transferServiceException.setMessage("SOURCE_ACCOUNT_NOT_FOUND");
                 throw transferServiceException;
             } else {
-                //validating over transfer
+                //validating over withdrawn
                 double difference = sourceAccount.getBalance() - transaction.getAmount();
                 if (difference < 0) {
                     transferServiceException.setMessage("INSUFFICIENT_BALANCE_IN_SOURCE_ACCOUNT");

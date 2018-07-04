@@ -28,9 +28,9 @@ public class TransactionService {
     private AccountRepository accountRepository;
 
     /**
-     *
-     * @param transaction model class
-     * @return list of account which are requested for transfer, with updated balance
+     * this method will actually transfer the money between accounts and returns source and target modified account
+     * @param transaction model
+     * @return list of accounts which are requested for transfer, with updated balance
      * @throws TransferServiceException
      */
     public List<Account> transfer(Transaction transaction) throws TransferServiceException{

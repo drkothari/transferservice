@@ -27,8 +27,8 @@ public class TransactionController {
     private TransactionOrchestrator transactionOrchestrator;
 
     /**
-     *
-     * @param transaction reuest body
+     * This method calls orchestrator and saves transaction
+     * @param transaction request body
      * @return list of account which are requested for transfer, with updated balance
      * @throws TransferServiceException
      */

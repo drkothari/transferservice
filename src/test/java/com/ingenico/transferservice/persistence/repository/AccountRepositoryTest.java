@@ -1,6 +1,5 @@
 package com.ingenico.transferservice.persistence.repository;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -10,17 +9,16 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.ingenico.transferservice.persistence.entity.Account;
 
-@RunWith(SpringRunner.class)
+@RunWith(SpringJUnit4ClassRunner.class)
 @DataJpaTest
 public class AccountRepositoryTest {
 	
 	@Autowired
-    private TestEntityManager entityManager;
- 
+    private TestEntityManager entityManager; 
     @Autowired
     private AccountRepository accountRepository;
     

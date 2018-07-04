@@ -21,13 +21,12 @@ public class AccountService {
     AccountRepository accountRepository;
 
     /**
-     *
-     * @param accountModel
-     * @return added rnew Account resource
+     * This method will add the account in database
+     * @param account model
+     * @return added new Account resource
      * @throws TransferServiceException
      */
     public com.ingenico.transferservice.model.Account addAccount(com.ingenico.transferservice.model.Account accountModel) throws TransferServiceException {
-        TransferServiceException transferServiceException = new TransferServiceException();
         try {
             Account accountEntity = new Account(accountModel);
             accountRepository.save(accountEntity);
@@ -35,6 +34,7 @@ public class AccountService {
             accountModel.setUpdatedOn(accountEntity.getUpdated_on());
         } catch (Exception e) {
             logger.error("Exception while saving account in AccountService.addAccount()");
+            TransferServiceException transferServiceException = new TransferServiceException();
             transferServiceException.setMessage("TECHNICAL_ERROR");
             throw transferServiceException;
         }

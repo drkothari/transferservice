@@ -16,6 +16,12 @@ public class AccountOrchestrator {
     @Resource
     private AccountService accountService;
 
+    /**
+     * 
+     * @param account model data sent in request
+     * @return Account model with created/ updated dates
+     * @throws TransferServiceException
+     */
     public Account addAccount(Account account) throws TransferServiceException{
         return accountService.addAccount(account);
     }

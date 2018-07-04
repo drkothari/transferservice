@@ -1,43 +1,27 @@
 package com.ingenico.transferservice.service;
 
-import static org.hamcrest.CoreMatchers.any;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import javax.annotation.Resource;
-
 import com.ingenico.transferservice.context.TransferServiceException;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnitRunner;
+
 import static org.mockito.Matchers.any;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Service;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.ingenico.transferservice.model.Account;
 import com.ingenico.transferservice.persistence.repository.AccountRepository;
 
-@RunWith(SpringJUnit4ClassRunner.class)
+@RunWith(MockitoJUnitRunner.class)
 public class AccountServiceTest {
 	
-	@TestConfiguration
-    static class AccountServiceTestContextConfiguration {
-  
-        @Bean
-        public AccountService accountService() {
-            return new AccountService();
-        }
-    }
-	
-	@Autowired
-	private AccountService accountService;
-	
-	@MockBean
+	@InjectMocks
+	private AccountService accountService;	
+	@Mock
     private AccountRepository accountRepository;
 	
 	@Test

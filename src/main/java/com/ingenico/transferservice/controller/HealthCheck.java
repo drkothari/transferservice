@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * HeatheCheck
+ * HeatheCheck to check if api is up and running 
  */
 @RestController
 public class HealthCheck {

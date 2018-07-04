@@ -27,9 +27,9 @@ public class AccountController {
     private AccountOrchestrator accountOrchestrator;
 
     /**
-     *
+     * this method calls to orchestrator and saves account
      * @param accountModel request body
-     * @return added rnew Account resource
+     * @return added new Account resource
      * @throws TransferServiceException
      */
     @PostMapping("/accounts")
