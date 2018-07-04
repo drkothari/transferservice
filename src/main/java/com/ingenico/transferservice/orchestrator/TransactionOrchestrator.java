@@ -4,7 +4,6 @@ import com.ingenico.transferservice.context.TransferServiceException;
 import com.ingenico.transferservice.model.Transaction;
 import com.ingenico.transferservice.model.Account;
 import com.ingenico.transferservice.persistence.repository.AccountRepository;
-import com.ingenico.transferservice.persistence.repository.TransactionRepository;
 import com.ingenico.transferservice.service.TransactionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,8 +20,6 @@ public class TransactionOrchestrator {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @Resource
-    private TransactionRepository transactionRepository;
     @Resource
     private AccountRepository accountRepository;
     @Resource

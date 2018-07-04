@@ -12,7 +12,9 @@ import java.time.LocalDateTime;
 @Entity
 public class Account implements Serializable {
 
-    @Id
+	private static final long serialVersionUID = 1L;
+
+	@Id
     @GeneratedValue
     private Integer id;
 

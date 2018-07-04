@@ -14,7 +14,9 @@ import java.time.LocalDateTime;
 @Entity
 public class Transaction implements Serializable{
 
-    @Id
+	private static final long serialVersionUID = 2L;
+
+	@Id
     @GeneratedValue
     private Integer id;
 
